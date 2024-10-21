@@ -1,4 +1,4 @@
-import e, { Request, Response } from "express";
+import { Request, Response } from "express";
 import { UserModel } from "../models/user.model";
 import bycrypt from "bcrypt";
 
@@ -22,7 +22,7 @@ export const getUserByDocumentNumber = async (req: Request, res: Response) => {
   try {
     const getUserByDocumentNumber = await UserModel.findOne({ documentNumber });
 
-    res.json({ ok: true, user: getUserByDocumentNumber });
+    res.json({ ok: true, user: getUserByDocumentNumber, msg: "Este es el usuario consultado" });
   } catch (error) {
     res.status(500).json({ ok: false, message: "Error al consultar el usuario", error });
   }

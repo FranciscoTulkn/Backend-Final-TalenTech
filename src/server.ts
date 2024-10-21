@@ -4,6 +4,7 @@ import { connectDB } from "./database/connection";
 
 
 import userRoutes from './routes/users.routes';
+import clientRoutes from './routes/clients.routes';
 
 // Creando una clase para exportarla en el servidor
 export class Server {
@@ -12,6 +13,7 @@ export class Server {
   private api_paths = {
     home: "/api/v1/home",
     users: "/api/v1/users",
+    clients: "/api/v1/clients",
   }
 
   // Constructor para inicializar el servidor y la API
@@ -43,6 +45,7 @@ export class Server {
   // Rutas para el servidor
   routes(): void {
     this.app.use(this.api_paths.users, userRoutes)
+    this.app.use(this.api_paths.clients, clientRoutes)
   }
 
   // Funcion para validar el puerto en el servidor

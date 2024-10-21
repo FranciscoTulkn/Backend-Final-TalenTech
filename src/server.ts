@@ -1,5 +1,6 @@
 import express, { Application, Request, Response } from "express";
 import cors from "cors";
+import { connectDB } from "./database/connection";
 
 
 import userRoutes from './routes/users.routes';
@@ -17,6 +18,8 @@ export class Server {
   constructor() {
     this.app = express();
     this.port = process.env.PORT || "8000";
+
+    connectDB(); // Connection to DataBase in Moongose
 
     this.middleware();  // Son los metodos inicializadas que seran llamados desde el midddleware
 

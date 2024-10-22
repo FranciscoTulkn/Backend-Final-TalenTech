@@ -41,8 +41,8 @@ export const login = async (req: Request, res: Response) => {
 export const renewToken = async (req: CustomRequest, res: Response) => {
 
   const uid = req.uid;
-
-  if (typeof uid !== "undefined") {
+  console.log(uid);
+  if (!uid) {
     throw new Error("uid not provided");
   };
 
@@ -51,5 +51,5 @@ export const renewToken = async (req: CustomRequest, res: Response) => {
   // Generate new JWT token
   const token = await generateJWT(uid.toString());
 
-  res.status(200).json({ ok: true, user, token });
+  res.json({ ok: true, user, token });
 };

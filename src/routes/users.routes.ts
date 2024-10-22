@@ -5,7 +5,7 @@ import { generateJWT } from "../helpers/jwt";
 const router = Router();
 
 // Routes to users
-router.get('/', generateJWT, getUsers);
+router.get('/',  getUsers);
 router.get('/document/:documentNumber', getUserByDocumentNumber)
 router.get('/id/:id', getUserById)
 router.post("/", createUser);

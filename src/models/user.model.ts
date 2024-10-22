@@ -8,7 +8,7 @@ export interface IUser extends Document {
   password: string;
   phone: string;
   address: string;
-  dateBirth: Date;
+  dateBirth: Date; //Formato 2024-10-03T00:00:00.000Z
   role: PopulatedDoc<any>[];
 }
 

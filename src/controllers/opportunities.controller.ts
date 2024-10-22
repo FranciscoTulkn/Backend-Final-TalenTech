@@ -5,7 +5,7 @@ import { OpportunitiesModel } from "../models/opportunities.model";
 export const getOpportunities = async (req: Request, res: Response) => {
 
   try {
-    const getAllOpportunities = await OpportunitiesModel.find({});
+    const getAllOpportunities = await OpportunitiesModel.find({}).populate("user_id").populate("client_id");
 
     res.json({ ok: true, opportunities: getAllOpportunities });
   } catch (error) {

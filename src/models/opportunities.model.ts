@@ -1,11 +1,11 @@
-import { model, Schema } from "mongoose";
+import { model, Schema, Types } from "mongoose";
 
 
 export interface IOpportunities extends Document {
   title: string;
   description: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: Date; //Formato 2024-10-03T00:00:00.000Z
+  endDate: Date; //Formato 2024-10-03T00:00:00.000Z
   status: string;
   client_id: string;
   user_id: string;
@@ -38,12 +38,13 @@ const OpportunitiesSchema: Schema = new Schema({
   },
 
   client_id: {
-    type: String,
-    required: true
+    type: Types.ObjectId,
+    ref: "Client",
   },
 
   user_id: {
-    type: String,
+    type: Types.ObjectId,
+    ref: "User",
   }
 });
 

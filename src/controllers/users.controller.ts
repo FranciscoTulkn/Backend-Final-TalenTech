@@ -18,7 +18,7 @@ export const getUsers = async (req: Request, res: Response) => {
 export const getUserByDocumentNumber = async (req: Request, res: Response) => {
 
   const documentNumber = req.params.documentNumber;
-
+  console.log(documentNumber)
   try {
     const getUserByDocumentNumber = await UserModel.findOne({ documentNumber });
 

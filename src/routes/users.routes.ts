@@ -5,7 +5,7 @@ const router = Router();
 
 // Routes to users
 router.get('/', getUsers);
-router.get('/document/:document', getUserByDocumentNumber)
+router.get('/document/:documentNumber', getUserByDocumentNumber)
 router.get('/id/:id', getUserById)
 router.post("/", createUser);
 router.put('/update/:id',updateUserById)

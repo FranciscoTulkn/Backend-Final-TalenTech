@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 
 // Importar el middleware de validación JWT
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 
 // Interface para el UserID
 export interface CustomRequest extends Request {
@@ -9,7 +9,12 @@ export interface CustomRequest extends Request {
 }
 
 // Función para implementar la validación o expiración del TOKEN
-export const validateJWT = (req: CustomRequest, res: Response, next: NextFunction) => {
+export const validateJWT = (
+  req: CustomRequest, 
+  res: Response, 
+  next: NextFunction
+
+) => {
   // Implementar validación JWT aquí
   const token = req.header("back-token");
 
@@ -17,17 +22,19 @@ export const validateJWT = (req: CustomRequest, res: Response, next: NextFunctio
   if (!token) {
     return res.status(401).json({ 
       ok: false,
-      message: "No token provided." 
+      msg: "No token provided." 
     });
   }
 
   try {
     const { uid } = jwt.verify(token, process.env.JWT_SECRET);
     req.uid = uid;
+
+    next();
   } catch (error) {
     return res.status(401).json({
       ok: false, 
-      message: "Invalid token"
+      msg: "Invalid token"
     });
   }
 };

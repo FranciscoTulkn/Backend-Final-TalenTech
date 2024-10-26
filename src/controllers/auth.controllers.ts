@@ -4,8 +4,6 @@ import bcrypt from "bcrypt";
 import { generateJWT } from "../helpers/jwt";
 import { CustomRequest } from "../middlewares/validate-jwt";
 
-
-
 export const login = async (req: Request, res: Response) => {
 
   const { email, password } = req.body;
@@ -15,7 +13,7 @@ export const login = async (req: Request, res: Response) => {
     const userDb = await UserModel.findOne({ email });
 
     if (!userDb) {
-      return res.status(400).json({ ok: false, message: "El email no fue encontrado" });
+      return res.status(404).json({ ok: false, message: "El email no fue encontrado" });
     }
 
     // Verify to password
@@ -30,19 +28,20 @@ export const login = async (req: Request, res: Response) => {
     // Generate JWT token
     const token = await generateJWT(userDb.id, userDb.email);
 
-    res.status(200).json({ ok: true, user: userDb, token });
+    res.json({ ok: true , token, user: userDb });
     
   } catch (error) {
+    console.error(error);
     res.status(500).json({ ok: false, message: "Error al iniciar sesión" });
   }
-}
+};
 
 // Renew JWT token
 export const renewToken = async (req: CustomRequest, res: Response) => {
 
   const uid = req.uid;
   console.log(uid);
-  if (!uid) {
+  if (typeof uid === "undefined") {
     throw new Error("uid not provided");
   };
 
@@ -51,5 +50,5 @@ export const renewToken = async (req: CustomRequest, res: Response) => {
   // Generate new JWT token
   const token = await generateJWT(uid.toString());
 
-  res.json({ ok: true, user, token });
+  res.json({ ok: true, token , user });
 };
